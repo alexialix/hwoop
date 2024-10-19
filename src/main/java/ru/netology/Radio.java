@@ -3,22 +3,40 @@ package ru.netology;
 public class Radio {
     private int currentStation; // номер текущей радиостанции
     private int currentVolume;  // уровень громкости звука
+    private int stationCount;   // количество радиостанций
 
-    // Получить текущую радиостанцию
+    // 10 станций по умолчанию
+    public Radio() {
+        this.stationCount = 10; // Количество станций по умолчанию
+    }
+
+    public int getStationCount() {
+        return stationCount;
+    }
+
+    public Radio(int stationCount) {
+        if (stationCount > 0) {
+            this.stationCount = stationCount;
+        } else {
+            this.stationCount = 10;
+        }
+    }
+
+    // Текущая радиостанция
     public int getCurrentStation() {
         return currentStation;
     }
 
     // Установить радиостанцию с проверкой допустимости
     public void setCurrentStation(int currentStation) {
-        if (currentStation >= 0 && currentStation <= 9) {
+        if (currentStation >= 0 && currentStation < stationCount) {
             this.currentStation = currentStation;
         }
     }
 
     // Переключение на следующую радиостанцию
     public void nextStation() {
-        if (currentStation == 9) {
+        if (currentStation == stationCount - 1) {
             currentStation = 0;
         } else {
             currentStation++;
@@ -28,13 +46,13 @@ public class Radio {
     // Переключение на предыдущую радиостанцию
     public void prevStation() {
         if (currentStation == 0) {
-            currentStation = 9;
+            currentStation = stationCount - 1;
         } else {
             currentStation--;
         }
     }
 
-    // Получить текущий уровень громкости
+    // Текущий уровень громкости
     public int getCurrentVolume() {
         return currentVolume;
     }
