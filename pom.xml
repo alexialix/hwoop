@@ -62,8 +62,8 @@
                                     <limits>
                                         <limit>
                                             <counter>LINE</counter>
-                                            <value>COVERED RATIO</value>
-                                            <minimum>100%</minimum>
+                                            <value>COVEREDRATIO</value>
+                                            <minimum>100</minimum>
                                         </limit>
                                     </limits>
                                 </rule>
