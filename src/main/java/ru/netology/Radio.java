@@ -1,54 +1,74 @@
 package ru.netology;
 
 public class Radio {
-    private int currentStation; // номер текущей радиостанции
-    private int currentVolume;  // уровень громкости звука
+    private int currentStation;
+    private int stationCount;
+    private int currentVolume;
+    private static final int MAX_VOLUME = 100;
+    private static final int MIN_VOLUME = 0;
 
-    // Получить текущую радиостанцию
+    // Конструктор по умолчанию
+    public Radio() {
+        this.stationCount = 10; // По умолчанию 10 станций
+    }
+
+    // Конструктор с возможностью задания количества станций
+    public Radio(int stationCount) {
+        if (stationCount > 0) {
+            this.stationCount = stationCount;
+        } else {
+            this.stationCount = 10; // Если введено некорректное количество, устанавливаем 10
+        }
+    }
+
     public int getCurrentStation() {
         return currentStation;
     }
 
-    // Установить радиостанцию с проверкой допустимости
     public void setCurrentStation(int currentStation) {
-        if (currentStation >= 0 && currentStation <= 9) {
+        if (currentStation >= 0 && currentStation < stationCount) {
             this.currentStation = currentStation;
         }
     }
 
-    // Переключение на следующую радиостанцию
+    // Метод переключения на следующую станцию
     public void nextStation() {
-        if (currentStation == 9) {
-            currentStation = 0;
-        } else {
-            currentStation++;
+        if (stationCount == 1) {
+            return; // Если всего 1 станция, то переключать не нужно
         }
+        currentStation = (currentStation + 1) % stationCount;
     }
 
-    // Переключение на предыдущую радиостанцию
+    // Метод переключения на предыдущую станцию
     public void prevStation() {
-        if (currentStation == 0) {
-            currentStation = 9;
-        } else {
-            currentStation--;
+        if (stationCount == 1) {
+            return; // Если всего 1 станция, то переключать не нужно
         }
+        currentStation = (currentStation - 1 + stationCount) % stationCount;
     }
 
-    // Получить текущий уровень громкости
+    public int getStationCount() {
+        return stationCount;
+    }
+
     public int getCurrentVolume() {
         return currentVolume;
     }
 
-    // Увеличение громкости на 1 с проверкой
+    public void setVolume(int volume) {
+        if (volume >= MIN_VOLUME && volume <= MAX_VOLUME) {
+            this.currentVolume = volume;
+        }
+    }
+
     public void increaseVolume() {
-        if (currentVolume < 100) {
+        if (currentVolume < MAX_VOLUME) {
             currentVolume++;
         }
     }
 
-    // Уменьшение громкости на 1 с проверкой
     public void decreaseVolume() {
-        if (currentVolume > 0) {
+        if (currentVolume > MIN_VOLUME) {
             currentVolume--;
         }
     }
